@@ -22,7 +22,7 @@ Both placeholders resolve to an empty string when there's no such waypoint, or w
 
 - [Typewriter](https://typewritermc.com/) `0.9.0-beta-174`+ with the **Quest** extension (`waypoint_manifest` must be a child of a quest objective)
 - [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/)
-- An ItemsAdder pack providing 32 compass glyphs named `img_compass_00` through `img_compass_31` (frame 0 = due south, increasing clockwise). A ready-to-use pack is attached to each [release](../../releases).
+- An ItemsAdder pack providing 32 compass glyphs named `img_compass_00` through `img_compass_31` (frame 0 = due south, increasing clockwise). A ready-to-use pack — [`itemsadder/influwaypoint`](itemsadder/influwaypoint) — is included in this repo: copy that folder into your server's `plugins/ItemsAdder/contents/`.
 
 ## Building
 
