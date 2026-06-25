@@ -1,4 +1,3 @@
-
 # Waypoint
 
 A Typewriter extension for Paper 1.21.x that exposes a player's currently active waypoint as live PlaceholderAPI placeholders — no entities, no packets, no per-tick rendering overhead, no persisted state.
