@@ -1,5 +1,6 @@
 package com.example.waypoint.tracking
 
+import com.example.waypoint.data.WaypointData
 import me.clip.placeholderapi.PlaceholderAPI
 import me.clip.placeholderapi.expansion.PlaceholderExpansion
 import org.bukkit.Bukkit
@@ -14,8 +15,12 @@ private const val DEGREES_PER_FRAME = 360.0 / FRAME_COUNT
 
 /**
  * Exposes `%waypoint_compass%` (the resolved ItemsAdder compass glyph, e.g. for frame 7) and
- * `%waypoint_distance%` (e.g. "23m") for the player's currently tracked waypoint. Both resolve to
- * an empty string when nothing is tracked, or when the player isn't in the waypoint's world.
+ * `%waypoint_distance%` (e.g. "23m") for whichever waypoint_manifest the player is currently in the
+ * audience of. Both resolve to an empty string when no manifest is active, or when the player isn't
+ * in the waypoint's world.
+ *
+ * Looked up live on every request (not cached) — there's no persisted "tracked waypoint" state to
+ * desync, so a missed/out-of-order audience event can never leave a stale waypoint stuck on.
  *
  * %waypoint_compass% resolves the underlying %img_compass_XX% placeholder itself (rather than
  * returning it as-is) because PlaceholderAPI only does a single substitution pass: a nested
@@ -31,7 +36,7 @@ class WaypointPlaceholderExpansion : PlaceholderExpansion() {
 
     override fun onPlaceholderRequest(player: Player?, params: String): String {
         if (player == null) return ""
-        val waypoint = WaypointTracker.current(player.uniqueId) ?: return ""
+        val waypoint = activeWaypoint(player) ?: return ""
 
         val world = Bukkit.getWorld(waypoint.world) ?: return ""
         if (player.world != world) return ""
@@ -44,6 +49,11 @@ class WaypointPlaceholderExpansion : PlaceholderExpansion() {
             "distance" -> "${player.location.distance(Location(world, waypoint.x, waypoint.y, waypoint.z)).roundToLong()}m"
             else -> ""
         }
+    }
+
+    private fun activeWaypoint(player: Player): WaypointData? {
+        val manifest = WaypointManifestRegistry.activeFor(player) ?: return null
+        return WaypointData(manifest.label, manifest.x, manifest.y, manifest.z, manifest.world)
     }
 
     private fun bearingFrame(dx: Double, dz: Double, playerYaw: Float): Int {

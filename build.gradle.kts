@@ -21,11 +21,12 @@ typewriter {
     namespace = "example"
 
     extension {
-        name = "Waypoint"
-        shortDescription = "Single tracked waypoint per player, exposed as PlaceholderAPI placeholders"
+        name = "InfluWaypoint"
+        shortDescription = "Active player waypoint, exposed via PlaceholderAPI placeholders"
         description = """
-            |Lets Typewriter entries set/clear a single tracked waypoint per player, and exposes
-            |%waypoint_compass% (ItemsAdder compass frame id) and %waypoint_distance% via PlaceholderAPI.
+            |Exposes %waypoint_compass% (ItemsAdder compass frame id) and %waypoint_distance% via
+            |PlaceholderAPI for whichever waypoint_manifest entry the player is currently in the
+            |audience of. No persisted state, resolved live on every placeholder request.
             """.trimMargin()
         engineVersion = "0.9.0-beta-174"
         channel = com.typewritermc.moduleplugin.ReleaseChannel.BETA

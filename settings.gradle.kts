@@ -6,4 +6,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = "WaypointExtension"
+rootProject.name = "influ-waypoint"
