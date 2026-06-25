@@ -1,8 +1,11 @@
+
 # Waypoint
 
 A Typewriter extension for Paper 1.21.x that lets your book set (or clear) **one tracked waypoint per player**, and exposes its direction/distance as live PlaceholderAPI placeholders — no entities, no packets, no per-tick rendering overhead.
 
 Simple way to guide a player to a destination without a compass in the inventory.
+
+<img width="328" height="286" alt="Capture" src="https://github.com/user-attachments/assets/2471c942-9f20-49b1-a231-6525d51d37eb" />
 
 ## Entries
 
