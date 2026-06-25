@@ -46,3 +46,7 @@ typewriter {
 kotlin {
     jvmToolchain(21)
 }
+
+tasks.jar {
+    archiveFileName.set("influ-waypoint.jar")
+}
