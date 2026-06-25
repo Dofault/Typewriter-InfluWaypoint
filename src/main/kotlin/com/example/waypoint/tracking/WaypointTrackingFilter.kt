@@ -9,16 +9,17 @@ import org.bukkit.entity.Player
 private const val TICK_INTERVAL = 5
 
 /**
- * Lets its children be shown only to players who are currently in the audience of any waypoint_manifest.
+ * Lets its children be shown only to players who currently have a waypoint from their tracked quest.
  *
  * `filter()` is only re-evaluated when something calls `refresh()` on this display — unlike fact-based
- * filters, there's no single event to subscribe to here (audience membership can change for many
- * different reasons upstream), so this re-checks itself periodically instead of relying on a push.
+ * filters, there's no single event to subscribe to here (the tracked quest, and which of its
+ * objectives are showing, can change for many different reasons upstream), so this re-checks itself
+ * periodically instead of relying on a push.
  */
 class WaypointTrackingFilter(ref: Ref<out AudienceFilterEntry>) : AudienceFilter(ref), TickableDisplay {
     private var tickCounter = 0
 
-    override fun filter(player: Player): Boolean = WaypointManifestRegistry.hasAnyActiveFor(player)
+    override fun filter(player: Player): Boolean = TrackedQuestWaypoint.find(player) != null
 
     override fun tick() {
         tickCounter++

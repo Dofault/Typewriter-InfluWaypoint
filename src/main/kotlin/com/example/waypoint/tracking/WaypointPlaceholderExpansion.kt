@@ -15,9 +15,10 @@ private const val DEGREES_PER_FRAME = 360.0 / FRAME_COUNT
 
 /**
  * Exposes `%waypoint_compass%` (the resolved ItemsAdder compass glyph, e.g. for frame 7) and
- * `%waypoint_distance%` (e.g. "23m") for whichever waypoint_manifest the player is currently in the
- * audience of. Both resolve to an empty string when no manifest is active, or when the player isn't
- * in the waypoint's world.
+ * `%waypoint_distance%` (e.g. "23m") for the waypoint_manifest belonging to the player's currently
+ * *tracked* quest (see [TrackedQuestWaypoint]) — not just any quest whose objective happens to be
+ * active, otherwise progressing an unrelated quest would steal the displayed waypoint. Both resolve
+ * to an empty string when there's no such waypoint, or when the player isn't in its world.
  *
  * Looked up live on every request (not cached) — there's no persisted "tracked waypoint" state to
  * desync, so a missed/out-of-order audience event can never leave a stale waypoint stuck on.
@@ -52,7 +53,7 @@ class WaypointPlaceholderExpansion : PlaceholderExpansion() {
     }
 
     private fun activeWaypoint(player: Player): WaypointData? {
-        val manifest = WaypointManifestRegistry.activeFor(player) ?: return null
+        val manifest = TrackedQuestWaypoint.find(player) ?: return null
         return WaypointData(manifest.label, manifest.x, manifest.y, manifest.z, manifest.world)
     }
 

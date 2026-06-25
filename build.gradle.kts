@@ -12,6 +12,9 @@ dependencies {
     implementation(kotlin("reflect"))
     // Provided at runtime by the PlaceholderAPI plugin already installed on the server.
     compileOnly("me.clip:placeholderapi:2.11.6")
+    // Provided at runtime by Typewriter's own QuestExtension. Used to find the waypoint belonging
+    // to the player's currently tracked quest, instead of any quest's currently-active objective.
+    implementation("com.typewritermc:QuestExtension:0.9.0")
 }
 
 group = "com.example"
@@ -32,6 +35,7 @@ typewriter {
         channel = com.typewritermc.moduleplugin.ReleaseChannel.BETA
 
         dependencies {
+            dependency("typewritermc", "Quest")
             paper {
                 dependency("PlaceholderAPI")
             }

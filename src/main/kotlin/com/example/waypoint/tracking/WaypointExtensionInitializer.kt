@@ -12,8 +12,6 @@ object WaypointExtensionInitializer : Initializable {
     // initialize()/shutdown() aren't guaranteed to run on the main thread, but PlaceholderAPI's
     // ExpansionRegisterEvent (fired by register()/unregister()) must be triggered synchronously.
     override suspend fun initialize() {
-        WaypointManifestRegistry.refresh()
-
         Bukkit.getScheduler().runTask(plugin, Runnable {
             if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
                 placeholderExpansion = WaypointPlaceholderExpansion().also { it.register() }
