@@ -48,5 +48,5 @@ kotlin {
 }
 
 tasks.jar {
-    archiveFileName.set("influ-waypoint.jar")
+    archiveFileName.set("CompassWaypointExtension.jar")
 }

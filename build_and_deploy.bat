@@ -15,12 +15,16 @@ if not exist "%TARGET%" (
 )
 
 rem Le plugin Gradle Typewriter peut deposer sa propre copie versionnee dans le
-rem dossier d'extensions (ex: influ-waypoint-1.0.0.jar, InfluWaypoint-1.0.0.jar)
-rem en plus de la notre. On la supprime pour eviter d'avoir deux jars charges.
+rem dossier d'extensions en plus de la notre (anciens noms inclus). On les
+rem supprime pour eviter d'avoir deux jars charges.
+del /q "%TARGET%\CompassWaypointExtension-*.jar" 2>nul
+del /q "%TARGET%\InfluWaypointExtension-*.jar" 2>nul
+del /q "%TARGET%\InfluWaypointExtension.jar" 2>nul
 del /q "%TARGET%\influ-waypoint-*.jar" 2>nul
+del /q "%TARGET%\influ-waypoint.jar" 2>nul
 del /q "%TARGET%\InfluWaypoint-*.jar" 2>nul
 
-copy /y "%~dp0build\libs\influ-waypoint.jar" "%TARGET%\influ-waypoint.jar"
+copy /y "%~dp0build\libs\CompassWaypointExtension.jar" "%TARGET%\CompassWaypointExtension.jar"
 
 echo.
-echo Jar copie dans %TARGET%\influ-waypoint.jar
+echo Jar copie dans %TARGET%\CompassWaypointExtension.jar
